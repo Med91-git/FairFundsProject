@@ -96,3 +96,5 @@ Uncomment if you have either new or legacy project structure
 
 Uncomment if you have included a nuget packages folder in your repo
 #![Pp]ackages/
+
+appsettings.Development.json
