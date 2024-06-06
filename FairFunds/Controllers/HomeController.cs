@@ -1,5 +1,7 @@
+using FairFunds.Data;
 using FairFunds.Models;
 using Microsoft.AspNetCore.Mvc;
+using SQLitePCL;
 using System.Diagnostics;
 
 namespace FairFunds.Controllers
