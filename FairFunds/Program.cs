@@ -1,4 +1,5 @@
 using FairFunds.Data;
+using FairFunds.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,7 +18,7 @@ namespace FairFunds
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
             builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddEntityFrameworkStores<ApplicationDbContext>();  
             builder.Services.AddControllersWithViews();
 
             var app = builder.Build();
@@ -46,7 +47,7 @@ namespace FairFunds
                 pattern: "{controller=Home}/{action=Index}/{id?}");
             app.MapRazorPages();
 
-            app.Run();
+            app.Run(); 
         }
     }
 }
