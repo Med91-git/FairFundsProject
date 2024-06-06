@@ -69,6 +69,9 @@ namespace FairFunds.Areas.Identity.Pages.Account.Manage
             [Display(Name = "Last name")]
 
             public string LastName { get; set; }
+
+            [Display(Name = "Profile Picture")]
+            public byte[] ProfilePicture { get; set; }
         }
 
         private async Task LoadAsync(CustomUser user)
@@ -77,13 +80,15 @@ namespace FairFunds.Areas.Identity.Pages.Account.Manage
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
             var firstName = user.FirstName;
             var lastName = user.LastName;
+            var profilePicture = user.ProfilePicture;
             Username = userName;
 
             Input = new InputModel
             {
                 PhoneNumber = phoneNumber,
                 FirstName = firstName,
-                LastName = lastName
+                LastName = lastName,
+                ProfilePicture = profilePicture
             };
         }
 
@@ -134,6 +139,17 @@ namespace FairFunds.Areas.Identity.Pages.Account.Manage
             if (Input.LastName != lastName)
             {
                 user.LastName = Input.LastName;
+            }
+
+            var profilePicture = user.ProfilePicture;
+            if (Request.Form.Files.Count > 0)
+            {
+                IFormFile file = Request.Form.Files.FirstOrDefault();
+                using (var dataStream = new MemoryStream())
+                {
+                    await file.CopyToAsync(dataStream);
+                    user.ProfilePicture = dataStream.ToArray();
+                }
             }
 
             var updateResult = await _userManager.UpdateAsync(user);
