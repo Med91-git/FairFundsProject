@@ -6,10 +6,12 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+using FairFunds.Data;
 using FairFunds.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 
 namespace FairFunds.Areas.Identity.Pages.Account.Manage
 {
@@ -59,18 +61,34 @@ namespace FairFunds.Areas.Identity.Pages.Account.Manage
             [Phone]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
+
+            [Display(Name = "First name")]
+
+            public string FirstName { get; set; }
+
+            [Display(Name = "Last name")]
+
+            public string LastName { get; set; }
+
+            [Display(Name = "Profile Picture")]
+            public byte[] ProfilePicture { get; set; }
         }
 
         private async Task LoadAsync(CustomUser user)
         {
             var userName = await _userManager.GetUserNameAsync(user);
             var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
-
+            var firstName = user.FirstName;
+            var lastName = user.LastName;
+            var profilePicture = user.ProfilePicture;
             Username = userName;
 
             Input = new InputModel
             {
-                PhoneNumber = phoneNumber
+                PhoneNumber = phoneNumber,
+                FirstName = firstName,
+                LastName = lastName,
+                ProfilePicture = profilePicture
             };
         }
 
@@ -111,6 +129,35 @@ namespace FairFunds.Areas.Identity.Pages.Account.Manage
                 }
             }
 
+            var firstName = user.FirstName;
+            if (Input.FirstName != firstName)
+            {
+                user.FirstName = Input.FirstName;
+            }
+
+            var lastName = user.LastName;
+            if (Input.LastName != lastName)
+            {
+                user.LastName = Input.LastName;
+            }
+
+            var profilePicture = user.ProfilePicture;
+            if (Request.Form.Files.Count > 0)
+            {
+                IFormFile file = Request.Form.Files.FirstOrDefault();
+                using (var dataStream = new MemoryStream())
+                {
+                    await file.CopyToAsync(dataStream);
+                    user.ProfilePicture = dataStream.ToArray();
+                }
+            }
+
+            var updateResult = await _userManager.UpdateAsync(user);
+            if (!updateResult.Succeeded)
+            {
+                StatusMessage = "Unexpected error when trying to update user profile.";
+                return RedirectToPage();
+            }
             await _signInManager.RefreshSignInAsync(user);
             StatusMessage = "Your profile has been updated";
             return RedirectToPage();
