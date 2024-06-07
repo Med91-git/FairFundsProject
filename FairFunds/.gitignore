@@ -1,0 +1,100 @@
+Visual Studio
+.vs/
+.vscode/
+Rider
+.idea/
+
+User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+.sln.docstates
+
+Mono Auto Generated Files
+mono_crash.
+
+Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+Folder config file
+Desktop.ini
+
+Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+Build Results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+Uncomment if you have tasks that create the project's static files in wwwroot directory
+#wwwroot/
+
+Npm packages
+nodemodules/
+
+Temporary folders
+temp/
+*.tmp
+
+VS Code directories
+.vscode/
+.vscode-test/
+
+NuGet Packages
+.nupkg
+The packages folder can be ignored because of the file packages.config.
+Except build/, which is used for NuGet packages stored locally.
+**/[Pp]ackages/
+!**/[Pp]ackages/build/
+
+Microsoft Azure Web Apps
+.scm/
+*.csdef
+*.csccfg
+*.publishproj
+
+Windows Azure packaging
+*.cspack
+*.csman
+*.publishsettings
+
+SQL Server files
+*.mdf
+*.ldf
+*.ndf
+
+Business Intelligence projects
+*.rdl.data
+*.bim.layout
+*.bim*.settings
+*.rptproj.bak
+
+Microsoft Fakes
+.fakes.
+
+Entity Framework Migrations
+[Mm]igrations/
+
+ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+Uncomment if you have either new or legacy project structure
+#!**/wwwroot/
+
+Uncomment if you have included a nuget packages folder in your repo
+#![Pp]ackages/
+
+appsettings.Development.json
