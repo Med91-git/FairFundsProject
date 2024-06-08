@@ -25,7 +25,7 @@ namespace FairFunds.Controllers
 
             }
 
-            return View(); 
+            return View();  
         }
     }
 }
