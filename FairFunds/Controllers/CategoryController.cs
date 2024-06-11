@@ -8,24 +8,28 @@ namespace FairFunds.Controllers
     {
         private readonly ApplicationDbContext _context;
 
-
+        
+        
         public CategoryController(ApplicationDbContext context)
         {
             _context = context; 
         }
 
-        [HttpPost]
+        //[HttpPost]
+        [Route("/{controller}/CreateCategory")]
         public IActionResult CreateCategory(Category category)
         {
             if (ModelState.IsValid)
             {
                 _context.Categories.Add(category);
                 _context.SaveChanges();
-                return RedirectToAction("Index");
-
+                //return RedirectToAction("Index"); 
+                return View();
             }
 
-            return View();  
+            return View();
         }
+
+
     }
 }
