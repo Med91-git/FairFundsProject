@@ -1,20 +1,35 @@
-﻿@model ICollection<Category>
-
+﻿@model IEnumerable<FairFunds.Models.Category>
 
 @{
-
+    ViewData["Title"] = "View";
 }
 
+<h1>View</h1>
 
-<HTML>
-<body>
-    <h1> Mes Catégories :</h1>
-    <br>
-    <ul>
-        @foreach ( Category category in Model)
-        {
-            <li> Id : @category.CategoryID , Nom : @category.Name </li>
-        }
-    </ul> 
-
-</body>
+<p>
+    <a asp-action="CreateCategory">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.CategoryID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.CategoryID">Details</a> |
+                <a asp-action="DeleteCategory" asp-route-id="@item.CategoryID">Delete</a> 
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

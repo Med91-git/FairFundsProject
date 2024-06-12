@@ -16,7 +16,7 @@ namespace FairFunds.Controllers
         }
 
         //[HttpPost]
-        [Route("/{controller}/CreateCategory")]
+        [Route("/[controller]/CreateCategory")]
         public IActionResult CreateCategory(Category category)
         {
             if (ModelState.IsValid)
@@ -30,14 +30,15 @@ namespace FairFunds.Controllers
             return View();
         }
 
-        [Route("/{controller}/Index")]
+        [Route("/[controller]/Index")]
         public IActionResult Index() 
         {
             List<Category> categoryList = _context.Categories.Select((category) => category).ToList();
 
-            return View(categoryList); 
+            return View(categoryList);  
         }
 
+        
 
 
 
