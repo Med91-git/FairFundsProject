@@ -1,10 +1,9 @@
-﻿using FairFunds.Models;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace FairFunds.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class ApplicationDbContext : IdentityDbContext<CustomUser, IdentityRole, string>
     {
         public DbSet<Category> Categories { get; set; } 
         public DbSet<Expenditure> Expenditures { get; set; }   
