@@ -1,0 +1,20 @@
+﻿@model ICollection<Category>
+
+
+@{
+
+}
+
+
+<HTML>
+<body>
+    <h1> Mes Catégories :</h1>
+    <br>
+    <ul>
+        @foreach ( Category category in Model)
+        {
+            <li> Id : @category.CategoryID , Nom : @category.Name </li>
+        }
+    </ul> 
+
+</body>

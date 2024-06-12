@@ -30,6 +30,18 @@ namespace FairFunds.Controllers
             return View();
         }
 
+        [Route("/{controller}/Index")]
+        public IActionResult Index() 
+        {
+            List<Category> categoryList = _context.Categories.Select((category) => category).ToList();
+
+            return View(categoryList); 
+        }
+
+
+
+
+
 
     }
 }
