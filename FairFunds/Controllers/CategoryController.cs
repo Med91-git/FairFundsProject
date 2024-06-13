@@ -29,6 +29,7 @@ namespace FairFunds.Controllers
 
             return View();
         }
+
         [Route("/[controller]/Index")] 
         public IActionResult Index() 
         {
