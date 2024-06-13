@@ -6,7 +6,7 @@ using Microsoft.CodeAnalysis.Diagnostics;
 
 namespace FairFunds.Controllers
 {
-    
+    [Authorize]
     public class CategoryController : Controller 
     {
         private readonly ApplicationDbContext _context;
@@ -29,7 +29,7 @@ namespace FairFunds.Controllers
 
             return View();
         }
-
+        
         [Route("/[controller]/Index")] 
         public IActionResult Index() 
         {
@@ -42,7 +42,7 @@ namespace FairFunds.Controllers
         [Route("/[controller]/DeleteCategory/")]
         public IActionResult DeleteCategory(int id) 
         {
-            // Searching in list the category to delete
+            // Searching in list the category to delete by id value
 
             foreach (Category category in _context.Categories)
             {
