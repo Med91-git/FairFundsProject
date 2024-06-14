@@ -6,13 +6,13 @@ using Microsoft.AspNetCore.Identity;
 
 namespace FairFunds.Controllers
 {
-    public class AddExpenditureController : Controller
+    public class ExpenditureController : Controller
     {
         private readonly ApplicationDbContext _context;
 
 
 
-        public AddExpenditureController(ApplicationDbContext context)
+        public ExpenditureController(ApplicationDbContext context)
         {
             _context = context;
         }
