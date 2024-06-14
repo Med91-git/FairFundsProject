@@ -1,0 +1,42 @@
+﻿@model IEnumerable<FairFunds.Models.Category>
+
+@{
+	ViewData["Title"] = "Category";
+}
+
+<div class="container">
+	<h1 class="mb-4">Category</h1>
+	<div class="row">
+		<div class="col-6 mt-2">
+			<a class="btn btn-dark" type="submit" asp-action="CreateCategory">New</a>
+		</div>
+		<div class="col-6">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>
+							@Html.DisplayNameFor(model => model.Name)
+						</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (var item in Model)
+					{
+						<tr>
+							<td>
+								@Html.DisplayFor(modelItem => item.Name)
+							</td>
+							<td>
+								@* 								<a asp-action="Edit" asp-route-id="@item.CategoryID">Edit</a> |
+							<a asp-action="Details" asp-route-id="@item.CategoryID">Details</a> |
+							*@
+								<a asp-action="DeleteCategory" asp-route-id="@item.CategoryID">Delete</a>
+							</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
