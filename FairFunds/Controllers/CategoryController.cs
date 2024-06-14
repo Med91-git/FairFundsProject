@@ -23,10 +23,8 @@ namespace FairFunds.Controllers
             {
                 _context.Categories.Add(category);
                 _context.SaveChanges();
-                return RedirectToAction("Index");  
-                //return View();
+                return RedirectToAction("Index"); 
             }
-
             return View();
         }
         
@@ -37,7 +35,6 @@ namespace FairFunds.Controllers
 
             return View(categoryList);  
         }
-
         
         [Route("/[controller]/DeleteCategory/")]
         public IActionResult DeleteCategory(int id) 
@@ -73,6 +70,5 @@ namespace FairFunds.Controllers
             return RedirectToAction("Index");
 
         }
-
     }
 }
