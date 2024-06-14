@@ -23,10 +23,8 @@ namespace FairFunds.Controllers
             {
                 _context.Categories.Add(category);
                 _context.SaveChanges();
-                //return RedirectToAction("Index"); 
-                return View();
+                return RedirectToAction("Index"); 
             }
-
             return View();
         }
 
@@ -37,12 +35,5 @@ namespace FairFunds.Controllers
 
             return View(categoryList);  
         }
-
-        
-
-
-
-
-
     }
 }
