@@ -1,0 +1,36 @@
+﻿@model IEnumerable<FairFunds.Models.Expenditure>
+
+@{
+    ViewData["Title"] = "View";
+}
+
+<h1>View</h1>
+
+<p>
+    <a asp-action="AddExpenditure">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.ExpenditureID">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.ExpenditureID">Details</a> |
+                    <a asp-action="DeleteExpenditure" asp-route-id="@item.ExpenditureID">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
