@@ -11,16 +11,17 @@ namespace FairFunds.Models
         public DateOnly Date { get; set; } 
         public int Amount {  get; set; }
 
-        [ForeignKey("CategoryID")]
+        [ForeignKey("Category")] 
+        public int CategoryID { get; set; }
 
         public Category Category { get; set; }
 
-        public int CategoryID { get; set; }
 
-        [ForeignKey("customuserId")]
+        [ForeignKey("CustomUser")]
+        public string customuserId { get; set; }
+
         public CustomUser CustomUser { get; set; }
 
-        public string customuserId { get; set; }
 
 
     }
