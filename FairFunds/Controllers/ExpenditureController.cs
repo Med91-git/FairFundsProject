@@ -3,6 +3,8 @@ using FairFunds.Models;
 using Microsoft.AspNetCore.Mvc;
 using NuGet.Protocol;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Security.Claims;
 
 namespace FairFunds.Controllers
 {
@@ -10,19 +12,36 @@ namespace FairFunds.Controllers
     {
         private readonly ApplicationDbContext _context;
 
+        private readonly UserManager<CustomUser> _userManager;
 
-
-        public ExpenditureController(ApplicationDbContext context)
+        public ExpenditureController(ApplicationDbContext context, UserManager<CustomUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         [Route("/[controller]/AddExpenditure")]
-        public IActionResult AddExpenditure(Expenditure expenditure)
+        public IActionResult AddExpenditure(Expenditure expenditure) 
         {
-            List<CustomUser> users = _context.Users.ToList();
-            List<Category> categories = _context.Categories.ToList();
-            ViewBag.Users = users;
+            IEnumerable<SelectListItem> categories = _context.Categories.ToList().Select((c)=> new SelectListItem
+            { Text =c.Name, Value = c.CategoryID.ToString()});
+
+
+            // Recupérer le user connecté 
+
+            ClaimsPrincipal currentUser = User; 
+
+            // Recupérer l'id du custom user connecté (piste  -> chercher classe Identity Usermanager + code chat GPT)
+
+            string userId = _userManager.GetUserId(currentUser); 
+
+            // Affecter id du custom user dans la variable customuserId FK (associer la table dépense à l'utilisateur connecté)  
+
+            //var expenditureConnectedUserId = _context.Expenditures
+            
+
+
+
             ViewBag.Categories = categories;
             if (ModelState.IsValid)
             {
