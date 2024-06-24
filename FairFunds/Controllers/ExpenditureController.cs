@@ -23,31 +23,38 @@ namespace FairFunds.Controllers
         [Route("/[controller]/AddExpenditure")]
         public IActionResult AddExpenditure(Expenditure expenditure) 
         {
+
+            // Assign each category field in the view (Manage expenditure entity foreign key)  
+
             IEnumerable<SelectListItem> categories = _context.Categories.ToList().Select((c)=> new SelectListItem
-            { Text =c.Name, Value = c.CategoryID.ToString()});
+            { Text =c.Name, Value = c.CategoryID.ToString()}); 
+            
+            ViewBag.Categories = categories; 
+
+            /*// Recuperate the connected user
+
+            ClaimsPrincipal currentUser = User;
+
+            // Recuperate the connected custom user id
+
+            var userId = _userManager.GetUserId(currentUser);*/
 
 
-            // Recupérer le user connecté 
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var userId = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
 
-            ClaimsPrincipal currentUser = User; 
 
-            // Recupérer l'id du custom user connecté (piste  -> chercher classe Identity Usermanager + code chat GPT)
+            // Assign the custom user value in foreign key field of expenditure table in database (link between expenditure table and custom user table)
 
-            string userId = _userManager.GetUserId(currentUser); 
-
-            // Affecter id du custom user dans la variable customuserId FK (associer la table dépense à l'utilisateur connecté)  
-
-            //var expenditureConnectedUserId = _context.Expenditures
+            expenditure.customuserId = userId;
             
 
-
-
-            ViewBag.Categories = categories;
             if (ModelState.IsValid)
             {
+
                 _context.Expenditures.Add(expenditure);
                 _context.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index");  
             }
             return View();
         }

@@ -18,7 +18,7 @@ namespace FairFunds.Models
 
 
         [ForeignKey("CustomUser")]
-        public string customuserId { get; set; }
+        public string customuserId { get; set; } 
 
         public CustomUser CustomUser { get; set; }
 
