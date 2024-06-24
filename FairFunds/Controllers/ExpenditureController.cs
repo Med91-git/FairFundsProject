@@ -5,6 +5,7 @@ using NuGet.Protocol;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Security.Claims;
+using Microsoft.EntityFrameworkCore;
 
 namespace FairFunds.Controllers
 {
@@ -65,7 +66,7 @@ namespace FairFunds.Controllers
         [Route("/[controller]/Index")]
         public IActionResult Index()
         {
-            List<Expenditure> expenditureList = _context.Expenditures.Select((expenditure) => expenditure).ToList();
+            List<Expenditure> expenditureList = _context.Expenditures.Include((expenditure) => expenditure.Category).ToList(); 
 
             return View(expenditureList);
         }

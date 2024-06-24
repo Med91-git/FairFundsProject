@@ -23,6 +23,9 @@
 						<th>
 							@Html.DisplayNameFor(model => model.Amount)
 						</th>
+						<th>
+							@Html.DisplayNameFor(model => model.Category) 
+						</th>
 
 					</tr>
 				</thead>
@@ -35,6 +38,7 @@
 							</td>
 							<td>@Html.DisplayFor(modelItem => item.Date)</td>
 							<td>@Html.DisplayFor(modelItem => item.Amount)</td>
+							<td>@Html.DisplayFor(modelItem => item.Category.Name)</td>
 							@* 							<td>
 						<a asp-action="Edit" asp-route-id="@item.ExpenditureID">Edit</a> |
 						<a asp-action="Details" asp-route-id="@item.ExpenditureID">Details</a> |
