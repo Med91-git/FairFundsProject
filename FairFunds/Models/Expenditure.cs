@@ -14,13 +14,13 @@ namespace FairFunds.Models
         [ForeignKey("Category")] 
         public int CategoryID { get; set; }
 
-        public Category Category { get; set; }
+        public Category? Category { get; set; }
 
 
         [ForeignKey("CustomUser")]
         public string customuserId { get; set; } 
 
-        public CustomUser CustomUser { get; set; }
+        public CustomUser? CustomUser { get; set; }
 
 
 

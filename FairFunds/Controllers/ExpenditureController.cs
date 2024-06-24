@@ -20,43 +20,46 @@ namespace FairFunds.Controllers
             _userManager = userManager;
         }
 
-        [Route("/[controller]/AddExpenditure")]
-        public IActionResult AddExpenditure(Expenditure expenditure) 
+        [HttpGet("/[controller]/AddExpenditure")]
+        public IActionResult AddExpenditure()
         {
-
             // Assign each category field in the view (Manage expenditure entity foreign key)  
-
-            IEnumerable<SelectListItem> categories = _context.Categories.ToList().Select((c)=> new SelectListItem
-            { Text =c.Name, Value = c.CategoryID.ToString()}); 
-            
-            ViewBag.Categories = categories; 
-
-            /*// Recuperate the connected user
-
-            ClaimsPrincipal currentUser = User;
-
-            // Recuperate the connected custom user id
-
-            var userId = _userManager.GetUserId(currentUser);*/
-
+            LoadCategories();
 
             var claimsIdentity = (ClaimsIdentity)User.Identity;
             var userId = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
 
+            Expenditure e = new Expenditure();
+            e.customuserId = userId;
 
-            // Assign the custom user value in foreign key field of expenditure table in database (link between expenditure table and custom user table)
+            return View(e);
+        }
 
+        [HttpPost("/[controller]/AddExpenditure")]
+        public IActionResult AddExpenditure(Expenditure expenditure)
+        {
+            // facultatif, au cas où l'utilisateur modifie l'id dans le formulaire dans son navigateur
+            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var userId = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
             expenditure.customuserId = userId;
-            
 
             if (ModelState.IsValid)
             {
-
                 _context.Expenditures.Add(expenditure);
                 _context.SaveChanges();
-                return RedirectToAction("Index");  
+                return RedirectToAction("Index");
             }
-            return View();
+
+            LoadCategories();
+            return View(expenditure);
+        }
+
+        private void LoadCategories()
+        {
+            IEnumerable<SelectListItem> categories = _context.Categories.ToList().Select((c) => new SelectListItem
+            { Text = c.Name, Value = c.CategoryID.ToString() });
+
+            ViewBag.Categories = categories;
         }
 
         [Route("/[controller]/Index")]
