@@ -19,7 +19,7 @@ namespace FairFunds.Models
         public Category? Category { get; set; }
 
 
-        [ForeignKey("CustomUser")]
+        [ForeignKey("CustomUser")] 
         public string customuserId { get; set; } 
 
         public CustomUser? CustomUser { get; set; }

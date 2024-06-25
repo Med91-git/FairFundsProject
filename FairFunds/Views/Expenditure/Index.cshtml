@@ -40,7 +40,10 @@
 							<td>@Html.DisplayFor(modelItem => item.Amount)</td>
 							@if (item.Category == null)
 							{
-								<td> veuillez choisir une nouvelle catégorie dans la liste</td> 
+								<td>
+									Sélectionnez une catégorie
+									<a asp-action="UpdateExpenditure" asp-route-id="@item.ExpenditureID">Edit</a> |
+								</td> 
 							}
 							else
 							{

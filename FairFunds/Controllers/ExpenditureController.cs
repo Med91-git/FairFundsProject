@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Security.Claims;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace FairFunds.Controllers
 {
@@ -27,7 +29,7 @@ namespace FairFunds.Controllers
             // Assign each category field in the view (Manage expenditure entity foreign key)  
             LoadCategories();
 
-            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var claimsIdentity = (ClaimsIdentity)User.Identity; 
             var userId = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
 
             Expenditure e = new Expenditure();
@@ -68,14 +70,54 @@ namespace FairFunds.Controllers
         {
             List<Expenditure> expenditureList = _context.Expenditures.Include((expenditure) => expenditure.Category).ToList(); 
 
-            return View(expenditureList);
+            return View(expenditureList); 
         }
 
+        // Fonctionnalité Update catégorie 
+
+		[HttpGet("/[controller]/UpdateExpenditure/")]  
+		public IActionResult UpdateExpenditure(int id)
+
+		{
+            LoadCategories();
+
+            // Searching in list the expenditure to update by id value
+
+            foreach (Expenditure expenditure in _context.Expenditures)
+			{
+				if (expenditure.ExpenditureID == id) 
+				{
+					// Display the view with the expenditure selected by user 
+
+					return View(expenditure);  
+				}
+			}
+
+			return RedirectToAction("Index"); 
+		}
+
+		//[HttpPost,ActionName("UpdateExpenditure")]  
+		/*public IActionResult UpdateExpenditurePost(int ExpenditureID, string categoryName) 
+		{
+			// In category list, pick up the category the user wants to update 
+
+			Expenditure categoryToUpdate = _context.Expenditures.Where((expenditure) => expenditure.CategoryID == ExpenditureID).FirstOrDefault();
+
+			if (categoryToUpdate != null) 
+			{
+                
+                //assign category value of expenditure table in category field
+                
+				_context.Update(categoryToUpdate);  
+				_context.SaveChanges();
+			}
+
+			return RedirectToAction("Index");
+
+		}*/
 
 
 
 
-
-
-    }
+	}
 }
