@@ -15,7 +15,7 @@
 	<link rel="stylesheet" href="/css/styles.css" />
 	<link rel="icon" href="/images/favicon.png" />
 </head>
-<body>
+<body >
 	@* 	<header>
 	<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3 pt-2.5 pb-2.5" style="font-size: 1rem;">
 	<div class="container-fluid">
@@ -44,7 +44,7 @@
 	</header>
 	*@
 
-	<nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-dark">
+	<nav class="navbar navbar-expand-lg fixed-top navbar-dark">
 		<div class="container">
 			<a class="navbar-brand" asp-controller="Home" asp-action="Index">
 				FairFunds
@@ -68,11 +68,11 @@
 		@RenderSection("Hero", required: false)
 	}
 
-	<main role="main">
+	<main role="main" class="mb-7">
 		@RenderBody():
 	</main>
 
-	<footer class="border-top bg-primary footer bg-dark text-white py-4 mt-5">
+	<footer class="border-top bg-primary bg-dark footer text-white py-4">
 		<div class="container">
 			&copy; 2024 - FairFunds
 		</div>

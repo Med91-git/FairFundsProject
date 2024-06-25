@@ -16,8 +16,8 @@
 				<image src="data:image/*;base64,@(Convert.ToBase64String(customUser.ProfilePicture))" height="40" width="40"></image>
 			</li>
 		}
-		<li class="nav-item border border-dark">
-			<a class="nav-link text-light" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">@customUser.FirstName</a>
+		<li class="nav-item">
+			<a class="nav-link text-light" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @customUser.FirstName</a>
 		</li>
 		<li class="nav-item">
 			<a class="nav-link text-light" asp-controller="Expenditure" asp-action="Index">Dépenses</a>
