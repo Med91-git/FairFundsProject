@@ -73,10 +73,8 @@ namespace FairFunds.Controllers
             return View(expenditureList); 
         }
 
-        // Fonctionnalité Update catégorie 
-
 		[HttpGet("/[controller]/UpdateExpenditure/")]  
-		public IActionResult UpdateExpenditure(int id)
+		public IActionResult UpdateExpenditure(int id) 
 
 		{
             LoadCategories();
@@ -96,25 +94,33 @@ namespace FairFunds.Controllers
 			return RedirectToAction("Index"); 
 		}
 
-		//[HttpPost,ActionName("UpdateExpenditure")]  
-		/*public IActionResult UpdateExpenditurePost(int ExpenditureID, string categoryName) 
+		[HttpPost,ActionName("UpdateExpenditure")] 
+		public IActionResult UpdateExpenditureCategoryP(int expenditureID, int categoryId)  
 		{
-			// In category list, pick up the category the user wants to update 
+            LoadCategories();
 
-			Expenditure categoryToUpdate = _context.Expenditures.Where((expenditure) => expenditure.CategoryID == ExpenditureID).FirstOrDefault();
+            // In category list, pick up the category the user wants to update 
 
-			if (categoryToUpdate != null) 
-			{
-                
-                //assign category value of expenditure table in category field
-                
-				_context.Update(categoryToUpdate);  
-				_context.SaveChanges();
-			}
+            Category categoryToUpdate = _context.Categories.FirstOrDefault(c => c.CategoryID == categoryId);
 
-			return RedirectToAction("Index");
 
-		}*/
+            // In expenditure list, pick up the expenditure the user wants to update 
+
+            Expenditure expenditureToUpdate = _context.Expenditures.Find(expenditureID);  
+
+            // Assign the new category to the expenditure and update in database
+
+            if (categoryToUpdate != null) 
+            {
+                expenditureToUpdate.CategoryID = categoryToUpdate.CategoryID;  
+                _context.Update(expenditureToUpdate);
+                _context.SaveChanges();
+
+            }
+
+            return RedirectToAction("Index");  
+
+		}
 
 
 

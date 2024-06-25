@@ -34,15 +34,14 @@
 					{
 						<tr>
 							<td>
-								@Html.DisplayFor(modelItem => item.Title)
+								@Html.DisplayFor(modelItem => item.Title) 
 							</td>
 							<td>@Html.DisplayFor(modelItem => item.Date)</td>
 							<td>@Html.DisplayFor(modelItem => item.Amount)</td>
 							@if (item.Category == null)
 							{
 								<td>
-									Sélectionnez une catégorie
-									<a asp-action="UpdateExpenditure" asp-route-id="@item.ExpenditureID">Edit</a> |
+									<a asp-action="UpdateExpenditure" asp-route-id="@item.ExpenditureID">Sélectionnez une catégorie</a> | 
 								</td> 
 							}
 							else
