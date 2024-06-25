@@ -17,17 +17,17 @@
 			</li>
 		}
 		<li class="nav-item">
-			<a class="nav-link text-light" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @customUser.FirstName</a>
+			<a class="nav-link fw-semibold" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @customUser.FirstName</a>
 		</li>
 		<li class="nav-item">
-			<a class="nav-link text-light" asp-controller="Expenditure" asp-action="Index">Dépenses</a>
+			<a class="nav-link fw-semibold" asp-controller="Expenditure" asp-action="Index">Dépenses</a>
 		</li>
 		<li class="nav-item">
-			<a class="nav-link text-light" asp-controller="Category" asp-action="Index">Catégories</a>
+			<a class="nav-link fw-semibold" asp-controller="Category" asp-action="Index">Catégories</a>
 		</li>
 		<li class="nav-item">
 			<form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-				<button type="submit" class="nav-link btn btn-link text-light ">Déconnexion</button>
+				<button type="submit" class="nav-link btn btn-link fw-semibold">Déconnexion</button>
 			</form>
 		</li>
 	}
