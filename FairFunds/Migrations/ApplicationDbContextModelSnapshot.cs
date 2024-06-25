@@ -126,7 +126,7 @@ namespace FairFunds.Migrations
                     b.Property<int>("Amount")
                         .HasColumnType("int");
 
-                    b.Property<int>("CategoryID")
+                    b.Property<int?>("CategoryID")
                         .HasColumnType("int");
 
                     b.Property<DateOnly>("Date")
@@ -291,8 +291,7 @@ namespace FairFunds.Migrations
                     b.HasOne("FairFunds.Models.Category", "Category")
                         .WithMany()
                         .HasForeignKey("CategoryID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.HasOne("FairFunds.Models.CustomUser", "CustomUser")
                         .WithMany()

@@ -38,11 +38,19 @@
 							</td>
 							<td>@Html.DisplayFor(modelItem => item.Date)</td>
 							<td>@Html.DisplayFor(modelItem => item.Amount)</td>
-							<td>@Html.DisplayFor(modelItem => item.Category.Name)</td>
+							@if (item.Category == null)
+							{
+								<td> veuillez choisir une nouvelle catégorie dans la liste</td> 
+							}
+							else
+							{
+								<td>@Html.DisplayFor(modelItem => item.Category.Name)</td> 
+
+							}
 							@* 							<td>
 						<a asp-action="Edit" asp-route-id="@item.ExpenditureID">Edit</a> |
 						<a asp-action="Details" asp-route-id="@item.ExpenditureID">Details</a> |
-						<a asp-action="DeleteExpenditure" asp-route-id="@item.ExpenditureID">Delete</a>
+						<a asp-action="DeleteExpenditure" asp-route-id="@item.ExpenditureID">Delete</a> 
 						</td>
 						*@
 						</tr>
