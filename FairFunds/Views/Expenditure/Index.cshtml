@@ -4,26 +4,41 @@
 	ViewData["Title"] = "Expenditure";
 }
 
-<div class="container">
-	<h1 class="mb-4">Expenditure</h1>
-	<div class="row">
-		<div class="col-2 mt-2">
-			<a class="btn btn-dark" type="submit" asp-action="AddExpenditure">New</a>
+@section Hero {
+	<header class="header">
+		<div class="hero text-white pt-7 pb-4">
+			<div class="container-xl">
+				<div class="row">
+					<div class="row">
+						<div class="col-12">
+							<h1>Expenses</h1>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
-		<div class="col-10">
+		@* <partial name="_Hero" />
+	*@
+	</header>
+}
+
+<div class="col-md-12 pt-5">
+	<div class="d-flex justify-content-end">
+		<div class="col-md-3">
+			<a class="btn btn-dark text-white fw-semibold" type="submit" asp-action="AddExpenditure">Add expense</a>
+		</div>
+	</div>
+</div>
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
 			<table class="table">
 				<thead>
 					<tr>
-						<th>
-							@Html.DisplayNameFor(model => model.Title)
-						</th>
-						<th>
-							@Html.DisplayNameFor(model => model.Date)
-						</th>
-						<th>
-							@Html.DisplayNameFor(model => model.Amount)
-						</th>
-
+						<th>Title</th>
+						<th>Date</th>
+						<th>Amount</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -35,12 +50,6 @@
 							</td>
 							<td>@Html.DisplayFor(modelItem => item.Date)</td>
 							<td>@Html.DisplayFor(modelItem => item.Amount)</td>
-							@* 							<td>
-						<a asp-action="Edit" asp-route-id="@item.ExpenditureID">Edit</a> |
-						<a asp-action="Details" asp-route-id="@item.ExpenditureID">Details</a> |
-						<a asp-action="DeleteExpenditure" asp-route-id="@item.ExpenditureID">Delete</a>
-						</td>
-						*@
 						</tr>
 					}
 				</tbody>
@@ -48,4 +57,3 @@
 		</div>
 	</div>
 </div>
-

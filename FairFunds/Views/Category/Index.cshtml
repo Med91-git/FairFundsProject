@@ -11,20 +11,20 @@
 				<div class="row">
 					<div class="row">
 						<div class="col-12">
-							<h1>Catégories</h1>
+							<h1>Categories</h1>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		@* <partial name="_Hero" /> *@
-	</header>
+@* 		<partial name="_Hero" />
+ *@	</header>
 }
 
 <div class="col-md-12 pt-5">
 	<div class="d-flex justify-content-end">
 		<div class="col-md-3">
-			<a class="btn btn-dark text-white fw-semibold" type="submit" asp-action="CreateCategory">Créer une catégorie</a>
+			<a class="btn btn-dark text-white fw-semibold" type="submit" asp-action="CreateCategory">New category</a>
 		</div>
 	</div>
 </div>
@@ -35,7 +35,7 @@
 			<table class="table">
 				<thead>
 					<tr>
-						<th>Nom</th>
+						<th>Name</th>
 						<th></th>
 					</tr>
 				</thead>
@@ -48,7 +48,7 @@
 							</td>
 							<td>
 								<div class="d-flex justify-content-end">
-									<button class="btn btn-danger btn-sm fw-semibold" asp-action="DeleteCategory" asp-route-id="@item.CategoryID">Supprimer</button>
+									<a class="btn btn-danger btn-sm fw-semibold" asp-action="DeleteCategory" asp-route-id="@item.CategoryID">Delete</a>
 								</div>
 							</td>
 						</tr>
