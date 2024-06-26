@@ -23,6 +23,9 @@
 						<th>
 							@Html.DisplayNameFor(model => model.Amount)
 						</th>
+						<th>
+							@Html.DisplayNameFor(model => model.Category) 
+						</th>
 
 					</tr>
 				</thead>
@@ -31,14 +34,25 @@
 					{
 						<tr>
 							<td>
-								@Html.DisplayFor(modelItem => item.Title)
+								@Html.DisplayFor(modelItem => item.Title) 
 							</td>
 							<td>@Html.DisplayFor(modelItem => item.Date)</td>
 							<td>@Html.DisplayFor(modelItem => item.Amount)</td>
+							@if (item.Category == null)
+							{
+								<td>
+									<a asp-action="UpdateExpenditure" asp-route-id="@item.ExpenditureID">Sélectionnez une catégorie</a> | 
+								</td> 
+							}
+							else
+							{
+								<td>@Html.DisplayFor(modelItem => item.Category.Name)</td> 
+
+							}
 							@* 							<td>
 						<a asp-action="Edit" asp-route-id="@item.ExpenditureID">Edit</a> |
 						<a asp-action="Details" asp-route-id="@item.ExpenditureID">Details</a> |
-						<a asp-action="DeleteExpenditure" asp-route-id="@item.ExpenditureID">Delete</a>
+						<a asp-action="DeleteExpenditure" asp-route-id="@item.ExpenditureID">Delete</a> 
 						</td>
 						*@
 						</tr>
