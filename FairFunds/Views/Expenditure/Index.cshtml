@@ -2,6 +2,10 @@
 
 @{
 	ViewData["Title"] = "Expenditure";
+	var users = (List<CustomUser>)(ViewData["Users"]); 
+
+	double total = Model.Sum(e => e.Amount);
+	double avg = total / users.Count();
 }
 
 @section Hero {
@@ -36,9 +40,21 @@
 			<table class="table">
 				<thead>
 					<tr>
-						<th>Title</th>
-						<th>Date</th>
-						<th>Amount</th>
+						<th>
+							@Html.DisplayNameFor(model => model.Title)
+						</th>
+						<th>
+							@Html.DisplayNameFor(model => model.Date)
+						</th>
+						<th>
+							@Html.DisplayNameFor(model => model.Amount)
+						</th>
+						<th>
+							@Html.DisplayNameFor(model => model.Category) 
+						</th>
+						<th>
+							@Html.DisplayNameFor(model => model.CustomUser)
+						</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -46,10 +62,22 @@
 					{
 						<tr>
 							<td>
-								@Html.DisplayFor(modelItem => item.Title)
+								@Html.DisplayFor(modelItem => item.Title) 
 							</td>
 							<td>@Html.DisplayFor(modelItem => item.Date)</td>
 							<td>@Html.DisplayFor(modelItem => item.Amount)</td>
+							@if (item.Category == null)
+							{
+								<td>
+									<a asp-action="UpdateExpenditure" asp-route-id="@item.ExpenditureID">Select category</a>
+								</td> 
+							}
+							else
+							{
+								<td>@Html.DisplayFor(modelItem => item.Category.Name)</td> 
+
+							}
+							<td>@Html.DisplayFor(modelItem => item.CustomUser.FirstName)</td>
 						</tr>
 					}
 				</tbody>
@@ -57,3 +85,16 @@
 		</div>
 	</div>
 </div>
+
+@foreach (var user in users) 
+{
+	double userTotal = Model.Where(e => e.CustomUser.FirstName == user.FirstName).Sum(e => e.Amount);
+	if (userTotal > avg) 
+	{
+		<p>Le groupe doit @(userTotal - avg) € à @user.FirstName</p>
+	}
+	else
+	{
+		<p>@user.FirstName doit @(avg - userTotal) € au groupe</p> 
+	}
+} 

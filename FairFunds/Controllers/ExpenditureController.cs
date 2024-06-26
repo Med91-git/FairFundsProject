@@ -5,6 +5,9 @@ using NuGet.Protocol;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Security.Claims;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace FairFunds.Controllers
 {
@@ -26,7 +29,7 @@ namespace FairFunds.Controllers
             // Assign each category field in the view (Manage expenditure entity foreign key)  
             LoadCategories();
 
-            var claimsIdentity = (ClaimsIdentity)User.Identity;
+            var claimsIdentity = (ClaimsIdentity)User.Identity; 
             var userId = claimsIdentity.FindFirst(ClaimTypes.NameIdentifier).Value;
 
             Expenditure e = new Expenditure();
@@ -65,16 +68,71 @@ namespace FairFunds.Controllers
         [Route("/[controller]/Index")]
         public IActionResult Index()
         {
-            List<Expenditure> expenditureList = _context.Expenditures.Select((expenditure) => expenditure).ToList();
+            List<Expenditure> expenditureList = _context.Expenditures
+                .Include((expenditure) => expenditure.Category)
+                .Include((expenditure) => expenditure.CustomUser)
+                .ToList();
 
-            return View(expenditureList);
+			ViewData["Users"] = _context.Users
+				.ToList(); 
+
+			return View(expenditureList); 
         }
 
+		[HttpGet("/[controller]/UpdateExpenditure/")]  
+		public IActionResult UpdateExpenditure(int id) 
+
+		{
+            LoadCategories();
+
+            // Searching in list the expenditure to update by id value
+
+            foreach (Expenditure expenditure in _context.Expenditures)
+			{
+				if (expenditure.ExpenditureID == id) 
+				{
+					// Display the view with the expenditure selected by user 
+
+					return View(expenditure);  
+				}
+			}
+
+			return RedirectToAction("Index");  
+		}
+
+		[HttpPost,ActionName("UpdateExpenditure")] 
+		public IActionResult UpdateExpenditureCategoryP(int expenditureID, int categoryId)  
+		{
+            LoadCategories();
+
+            // In category list, pick up the category the user wants to update 
+
+            Category categoryToUpdate = _context.Categories.FirstOrDefault(c => c.CategoryID == categoryId);
+
+
+            // In expenditure list, pick up the expenditure the user wants to update 
+
+            Expenditure expenditureToUpdate = _context.Expenditures.Find(expenditureID);  
+
+            // Assign the new category to the expenditure and update in database
+
+            if (categoryToUpdate != null) 
+            {
+                expenditureToUpdate.CategoryID = categoryToUpdate.CategoryID;  
+                _context.Update(expenditureToUpdate);
+                _context.SaveChanges();
+
+            }
+
+            return RedirectToAction("Index");  
+
+		}
+
+		
 
 
 
 
 
-
-    }
+	}
 }

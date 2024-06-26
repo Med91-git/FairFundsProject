@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FairFunds.Models
@@ -12,12 +13,13 @@ namespace FairFunds.Models
         public int Amount {  get; set; }
 
         [ForeignKey("Category")] 
-        public int CategoryID { get; set; }
+        public int? CategoryID { get; set; }
 
+        [DeleteBehavior(DeleteBehavior.SetNull)]
         public Category? Category { get; set; }
 
 
-        [ForeignKey("CustomUser")]
+        [ForeignKey("CustomUser")] 
         public string customuserId { get; set; } 
 
         public CustomUser? CustomUser { get; set; }
