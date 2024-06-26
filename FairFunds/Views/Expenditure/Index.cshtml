@@ -2,6 +2,10 @@
 
 @{
 	ViewData["Title"] = "Expenditure";
+	var users = (List<CustomUser>)(ViewData["Users"]); 
+
+	double total = Model.Sum(e => e.Amount);
+	double avg = total / users.Count();
 }
 
 <div class="container">
@@ -26,6 +30,9 @@
 						<th>
 							@Html.DisplayNameFor(model => model.Category) 
 						</th>
+						<th>
+							@Html.DisplayNameFor(model => model.CustomUser)
+						</th>
 
 					</tr>
 				</thead>
@@ -49,6 +56,8 @@
 								<td>@Html.DisplayFor(modelItem => item.Category.Name)</td> 
 
 							}
+							<td>@Html.DisplayFor(modelItem => item.CustomUser.FirstName)</td>
+
 							@* 							<td>
 						<a asp-action="Edit" asp-route-id="@item.ExpenditureID">Edit</a> |
 						<a asp-action="Details" asp-route-id="@item.ExpenditureID">Details</a> |
@@ -63,3 +72,15 @@
 	</div>
 </div>
 
+@foreach (var user in users) 
+{
+	double userTotal = Model.Where(e => e.CustomUser.FirstName == user.FirstName).Sum(e => e.Amount);
+	if (userTotal > avg) 
+	{
+		<p>Le groupe doit @(userTotal - avg) € à @user.FirstName</p>
+	}
+	else
+	{
+		<p>@user.FirstName doit @(avg - userTotal) € au groupe</p> 
+	}
+} 

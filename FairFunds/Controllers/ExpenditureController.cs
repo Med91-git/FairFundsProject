@@ -68,9 +68,15 @@ namespace FairFunds.Controllers
         [Route("/[controller]/Index")]
         public IActionResult Index()
         {
-            List<Expenditure> expenditureList = _context.Expenditures.Include((expenditure) => expenditure.Category).ToList(); 
+            List<Expenditure> expenditureList = _context.Expenditures
+                .Include((expenditure) => expenditure.Category)
+                .Include((expenditure) => expenditure.CustomUser)
+                .ToList();
 
-            return View(expenditureList); 
+			ViewData["Users"] = _context.Users
+				.ToList(); 
+
+			return View(expenditureList); 
         }
 
 		[HttpGet("/[controller]/UpdateExpenditure/")]  
@@ -91,7 +97,7 @@ namespace FairFunds.Controllers
 				}
 			}
 
-			return RedirectToAction("Index"); 
+			return RedirectToAction("Index");  
 		}
 
 		[HttpPost,ActionName("UpdateExpenditure")] 
@@ -121,6 +127,9 @@ namespace FairFunds.Controllers
             return RedirectToAction("Index");  
 
 		}
+
+		
+
 
 
 
