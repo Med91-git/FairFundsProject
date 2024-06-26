@@ -7795,6 +7795,15 @@ textarea.form-control-lg {
   margin-bottom: 8rem !important;
 }
 
+.custom-main {
+    margin-bottom: 0rem !important;
+}
+
+.register-botom {
+    margin-bottom: 3rem !important; /* Adjust the value as needed */
+}
+
+
 .mb-8 {
   margin-bottom: 12rem !important;
 }
