@@ -8,57 +8,63 @@
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>@ViewData["Title"] - FairFunds</title>
-	<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 	<link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 	<link rel="stylesheet" href="~/FairFunds.styles.css" asp-append-version="true" />
+	<link rel="stylesheet" href="/css/font-awesome.css" />
+	<link rel="stylesheet" href="/css/bootstrap.css" />
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+	<link rel="stylesheet" href="/css/styles.css" />
+	<link rel="icon" href="/images/favicon.png" />
 </head>
-<body>
-	<header>
-		<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3 pt-2.5 pb-2.5" style="font-size: 1rem;">
-			<div class="container-fluid">
-				<a class="navbar-brand" style="font-size: 1.5rem;margin-left:1rem;" asp-area="" asp-controller="Home" asp-action="Index">FairFunds</a>
-				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-						aria-expanded="false" aria-label="Toggle navigation">
-					<span class="navbar-toggler-icon"></span>
-				</button>
-				<div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-					<ul class="navbar-nav flex-grow-1">
-						<li class="nav-item">
-							<a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-						</li>
-						@if (SignInManager.IsSignedIn(User))
-						{
-							<li class="nav-item">
-								<a class="nav-link text-light" asp-controller="Expenditure" asp-action="Index">Expenditure</a>
-							</li>
-							<li class="nav-item">
-								<a class="nav-link text-light" asp-controller="Category" asp-action="Index">Category</a>
-							</li>
-						}
-
-					</ul>
-					<partial name="_LoginPartial" />
-				</div>
-			</div>
-		</nav>
-	</header>
-	<div class="container">
-		<main role="main" class="pb-3">
-			@RenderBody()
-		</main>
-	</div>
-
-	<footer class="border-top bg-dark tbg-dark footer text-light">
+<body >
+	<nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-md-dark">
 		<div class="container">
-			&copy; 2024 - FairFunds - <a class="link-light text-decoration-none" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+			<a class="navbar-brand" asp-controller="Home" asp-action="Index">
+				<img src="~/images/logo.png" alt="FairFunds Logo" class="logo-image">
+			</a>
+			<button class="navbar-toggler"
+					type="button"
+					data-bs-toggle="collapse"
+					data-bs-target="#navbarNavDropdown">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNavDropdown">
+				<ul class="navbar-nav ms-auto">
+					<partial name="_LoginPartial" />
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	@if (IsSectionDefined("Hero"))
+	{
+		@RenderSection("Hero", required: false)
+	}
+
+	<main role="main" class="custom-main">
+		@RenderBody()
+	</main>
+
+	<footer class="border-top bg-primary bg-dark footer text-white py-2">
+		<div class="container">
+			&copy; 2024 - FairFunds
 		</div>
 	</footer>
+
 	<script src="~/lib/jquery/dist/jquery.min.js"></script>
-	<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 	<script src="~/js/site.js" asp-append-version="true"></script>
+	<script src="/js/bootstrap.bundle.min.js"></script>
+	<script src="/js/script.js"></script>
 	@await RenderSectionAsync("Scripts", required: false)
+
 </body>
 </html>
+
+<style>
+	.logo-image {
+		height: 70px; /* Adjust the height value as needed */
+		width: auto; /* Maintain the aspect ratio */
+		
+	}
+</style>

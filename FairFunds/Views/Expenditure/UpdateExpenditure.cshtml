@@ -1,57 +1,76 @@
 ﻿@model FairFunds.Models.Expenditure
 
 @{
-    ViewData["Title"] = "UpdateExpenditure";
-    IEnumerable<SelectListItem> categories = ViewBag.Categories;
+	ViewData["Title"] = "Update expenses";
+	IEnumerable<SelectListItem> categories = ViewBag.Categories;
 
 }
 
-<h1>UpdateExpenditure</h1>
+@section Hero {
+	<header class="header mb-5">
+		<div class="hero text-white pt-7 pb-4">
+			<div class="container-xl">
+				<div class="row">
+					<div class="row">
+						<div class="col-12">
+							<h1>Update expense</h1>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		@* <partial name="_Hero" />
+	*@
+	</header>
+}
 
-<h4>Expenditure</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="UpdateExpenditure"> 
-            <input asp-for="customuserId" hidden>
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="ExpenditureID" />
-            <div class="form-group">
-                <label asp-for="Title" class="control-label"></label>
-                <input readonly asp-for="Title" class="form-control" />
-                <span asp-validation-for="Title" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Date" class="control-label"></label>
-                <input readonly asp-for="Date" class="form-control" />
-                <span asp-validation-for="Date" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Amount" class="control-label"></label>
-                <input readonly asp-for="Amount" class="form-control" />
-                <span asp-validation-for="Amount" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="CategoryID" class="control-label"></label>
-                <select asp-for="CategoryID" class="form-control" asp-items="categories"></select>
-                <span asp-validation-for="CategoryID" class="text-danger"></span>
-            </div>
-            @* <div class="form-group">
-                <label asp-for="customuserId" class="control-label"></label>
-                <select asp-for="customuserId" class="form-control" asp-items="ViewBag.customuserId"></select>
-                <span asp-validation-for="customuserId" class="text-danger"></span>
-            </div>  *@
-            <div class="form-group"> 
-                <input type="submit" value="Save" class="btn btn-primary"/>
-            </div>
-        </form>
-    </div>
-</div>
+<section class="pb-4">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6">
+				<form asp-action="UpdateExpenditure" method=post>
+					<input asp-for="customuserId" hidden />
+					<input asp-for="ExpenditureID" hidden />
+					<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+					<div class="form-floating mb-4">
+						<input asp-for="Title" disabled class="form-control" />
+						<label asp-for="Title" class="control-label"></label>
+						<span asp-validation-for="Title" class="text-danger"></span>
+					</div>
+					<div class="form-floating mb-4">
+						<input type="date" disabled asp-for="Date" class="form-control" />
+						<label asp-for="Date" class="control-label"></label>
+						<span asp-validation-for="Date" class="text-danger"></span>
+					</div>
 
-<div>
-    <a asp-action="Index">Back to List</a> 
-</div>
+					<div class="form-floating mb-4">
+						<input asp-for="Amount" disabled class="form-control" />
+						<label asp-for="Amount" class="control-label"></label>
+						<span asp-validation-for="Amount" class="text-danger"></span>
+					</div>
+					<div class="form-group mb-5">
+						<label asp-for="CategoryID" class="control-label" hidden>Catégorie</label>
+						<select asp-for="CategoryID" asp-items="categories" type="text" class="form-control">
+							<option disabled selected>-- Select Category --</option>
+						</select>
+						<span asp-validation-for="CategoryID" class="text-danger"></span>
+					</div>
+					<div class="row">
+						<div class="col-md-6 d-grid">
+							<input type="submit" value="Update" class="btn btn-dark text-white mb-3" />
+						</div>
+						<div class="col-md-6 d-grid">
+							<a class="btn btn-secondary text-white mb-3" asp-action="Index">Go back</a>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</section>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+ @section Scripts {
+	@{
+		await Html.RenderPartialAsync("_ValidationScriptsPartial");
+	}
 }
