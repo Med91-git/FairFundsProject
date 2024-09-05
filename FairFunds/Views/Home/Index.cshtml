@@ -1,12 +1,26 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+	ViewData["Title"] = "HomePage";
 }
 
-<div class="d-flex align-items-center vh-100">
-    <div class="text-left">
-        <div class="col-12 col-md-8">
-            <h1 class="display-4 text-left">Bienvenue sur FairFunds</h1>
-            <p class="lead text-left">"Faites la balance, sans fausse note !"</p>
-        </div>
-    </div>
-</div>
+@section Hero {
+	<header class="header">
+		<div class="hero text-white pt-7">
+			<div class="container-xl">
+				<div class="row">
+					<div class="col-md-6">
+						<div class="image-container mb-5 px-4">
+							<img src="/images/Mar-Business_11.jpg" alt="" class="img-fluid rounded-5" />
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="text-container p-4 d-flex flex-column justify-content-center h-100 mb-5">
+							<h1 class="display-3 fw-bold">Welcome to FairFunds</h1>
+							<p class="lead">"Do the balance, without a false note!"</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<partial name="_Hero" />
+	</header>
+}

@@ -2,15 +2,41 @@
 
 @{
 	ViewData["Title"] = "Expenditure";
+	var users = (List<CustomUser>)(ViewData["Users"]);
+
+	double total = Model.Sum(e => e.Amount);
+	double avg = total / users.Count();
 }
 
-<div class="container">
-	<h1 class="mb-4">Expenditure</h1>
-	<div class="row">
-		<div class="col-2 mt-2">
-			<a class="btn btn-dark" type="submit" asp-action="AddExpenditure">New</a>
+@section Hero {
+	<header class="header">
+		<div class="hero text-white pt-7 pb-4">
+			<div class="container-xl">
+				<div class="row">
+					<div class="row">
+						<div class="col-12">
+							<h1>Expenses</h1>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
-		<div class="col-10">
+		@* <partial name="_Hero" />
+	*@
+	</header>
+}
+
+<div class="col-md-12 p-4 mx-3">
+	<div class="d-flex justify-content-end">
+		<div class="col-md-3">
+			<a class="btn btn-dark text-white fw-semibold" type="submit" asp-action="AddExpenditure">Add expense</a>
+		</div>
+	</div>
+</div>
+
+<div class="container">
+	<div class="row vstack gap-5">
+		<div class="col-md-12">
 			<table class="table">
 				<thead>
 					<tr>
@@ -23,7 +49,10 @@
 						<th>
 							@Html.DisplayNameFor(model => model.Amount)
 						</th>
-
+						<th>Spender</th>
+						<th>
+							@Html.DisplayNameFor(model => model.Category)
+						</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -34,18 +63,67 @@
 								@Html.DisplayFor(modelItem => item.Title)
 							</td>
 							<td>@Html.DisplayFor(modelItem => item.Date)</td>
-							<td>@Html.DisplayFor(modelItem => item.Amount)</td>
-							@* 							<td>
-						<a asp-action="Edit" asp-route-id="@item.ExpenditureID">Edit</a> |
-						<a asp-action="Details" asp-route-id="@item.ExpenditureID">Details</a> |
-						<a asp-action="DeleteExpenditure" asp-route-id="@item.ExpenditureID">Delete</a>
-						</td>
-						*@
+							<td>@item.Amount.ToString("c")</td>
+							<td>
+								@Html.DisplayFor(modelItem => item.CustomUser.FirstName)
+								@Html.DisplayFor(modelItem => item.CustomUser.LastName)
+							</td>
+
+							@if (item.Category == null)
+							{
+								<td>
+									<a class="text-danger fw-semibold text-decoration-none" asp-action="UpdateExpenditure" asp-route-id="@item.ExpenditureID">Select category</a>
+								</td>
+							}
+							else
+							{
+								<td>@Html.DisplayFor(modelItem => item.Category.Name)</td>
+							}
 						</tr>
 					}
 				</tbody>
 			</table>
 		</div>
+
+		<div class="col-lg-7">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Users</th>
+						<th>Total spend</th>
+						<th>Credit</th>
+						<th>Debt</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (var user in users)
+					{
+						double userTotal = Model.Where(e => e.CustomUser.FirstName == user.FirstName).Sum(e => e.Amount);
+
+						<tr>
+							<td>
+								@Html.DisplayFor(modelItem => user.FirstName)
+								@Html.DisplayFor(modelItem => user.LastName)
+							</td>
+							<td>
+								@userTotal.ToString("c")
+							</td>
+							@if (userTotal > avg)
+							{
+								<td>@((userTotal - avg).ToString("c"))</td>
+								<td></td>
+							}
+							else
+							{
+								<td></td>
+								<td>@((avg - userTotal).ToString("c"))</td>
+							}
+						</tr>
+					}
+				</tbody>
+			</table>
+		</div>
+
+		<p class="fw-bold">Total expenses : <span class="ms-5 text-primary">@total.ToString("c")</span></p>
 	</div>
 </div>
-
